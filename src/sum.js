@@ -1,5 +1,5 @@
 export function sum (a, b) {
   const result = a + b
-  console.log(`> Result: ${a} + ${b} = ${result}`)
+  console.log(`> RESULT: ${a} + ${b} = ${result}`)
   return result
 }
