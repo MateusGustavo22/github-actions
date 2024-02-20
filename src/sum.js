@@ -3,3 +3,5 @@ export function sum (a, b) {
   console.log(`---- RESULT: ${a} + ${b} = ${result}`)
   return result
 }
+
+// Comment
