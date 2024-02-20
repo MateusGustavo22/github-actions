@@ -4,4 +4,4 @@ export function sum (a, b) {
   return result
 }
 
-// Comment
+// Comment 2
