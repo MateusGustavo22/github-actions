@@ -1,42 +1,46 @@
 name: CI
 
-on: pull_request
-
-env:
-  NODE_VERSION: '21.4.0'
+on: [push, pull_request]
 
 jobs:
-  tests:
-    name: Tests
+  test:
+    name: Run Tests
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Install dependencies
-        run: npm install
-      - name: Run tests
-        run: npm run test
+    - name: Install dependencies
+      run: npm install
 
-  lint-styles:
-    name: Lint styles
+    - name: Run tests
+      run: npm run test
+
+  lint:
+    name: Run Linting
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      - name: Install dependencies
-        run: npm install
-      - name: Run lint
-        run: npm run lint
 
-  lint-commits:
-    name: Lint Commits
-    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - uses: wagoid/commitlint-github-action@v4
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run ESLint
+      run: npm run lint
+
+  commitlint:
+    name: Run Commitlint
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run Commitlint
+      run: npx commitlint --edit $1
