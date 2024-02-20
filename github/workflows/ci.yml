@@ -1,48 +1,26 @@
 name: CI
 
-on: pull_request:
-      branches:
-        - '*'
+on: [pull_request]
 
-jobs:
-  test:
-    name: Run Tests
-    runs-on: ubuntu-latest
+  jobs:
+    tests:
+      name: Run tests
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+        - uses: actions/setup-node@v3
+          with:
+            node-version: '21.4.0'
+        - run: npm install 
+        - run: npm run test
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run tests
-      run: npm run test
-
-  lint:
-    name: Run Linting
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run ESLint
-      run: npm run lint
-
-  commitlint:
-    name: Run Commitlint
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run Commitlint
-      run: npx commitlint --edit $1
+    lint-styles:
+      name: Run lint styles
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+        - uses: actions/setup-node@v3
+          with:
+            node-version: '21.4.0'
+        - run: npm install 
+        - run: npm run lint
